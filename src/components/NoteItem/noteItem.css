@@ -1,6 +1,6 @@
 .note-item {
   position: relative;
-  max-width: calc((100% - 100px) / 3);
+  width: calc((100% - 100px) / 3);
   padding: 25px;
   border: 2px solid #000;
 }

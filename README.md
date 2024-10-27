@@ -1,3 +1,5 @@
+[![Build status](https://ci.appveyor.com/api/projects/status/8cs6n40flutl4wxg?svg=true)](https://ci.appveyor.com/project/Professor-Severus-Snape/ra-lifecycle-crud-frontend)
+
 # CRUD
 
 Вам необходимо реализовать базовый CRUD без обновления при работе с HTTP.

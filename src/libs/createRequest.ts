@@ -2,8 +2,7 @@ import IOptions from '../models/IOptions';
 
 const createRequest = async (options: IOptions) => {
   const baseUrl = import.meta.env.VITE_URL;
-  // const { method, url, body = {}, params = {} } = options;
-  const { method, url, body = {} } = options; // TODO: Нужно ли передавать params - ???
+  const { method, url, body = {} } = options;
 
   switch (method) {
     case 'GET':
@@ -38,12 +37,6 @@ const createRequest = async (options: IOptions) => {
       try {
         await fetch(baseUrl + url, {
           method,
-          // FIXME: нужны ли здесь заголовки ???
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          // FIXME: надо ли передавать params ? Откуда они берутся в req на сервере ???
-          // params: JSON.stringify(params),
         });
       } catch (err) {
         console.log('error: ', err);

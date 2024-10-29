@@ -9,21 +9,20 @@ import Title from './components/Title/Title';
 const App = () => {
   const [note, setNote] = useState(''); // текст заметки -> "Lorem"
   const [list, setList] = useState([]); // массив заметок [{id: 0, content: "Lorem"}, {...}, ...]
-  const [isLoad, setIsLoad] = useState(false); // подключение к серверу
-  const [isFound, setIsFound] = useState(false); // ошибка подключения к серверу
+  const [status, setStatus] = useState('idle'); // статус подключения к серверу
 
   // первоначальная отрисовка компонента с данными, полученными с сервера:
   useEffect(() => {
     (async () => {
-      const server = await pingAPI(); // ждём ответа от сервера
-      setIsLoad(true);
+      setStatus('pending'); // ожидание подключения к серверу
+      const server = await pingAPI(); // подключение к серверу
 
-      // обработка ошибки подключения к серверу:
       if (server.status === 520) {
+        setStatus('error'); // ошибка подключения к серверу
         return; // выходим и отрисовываем ошибку сервера
       }
 
-      setIsFound(true); // связь с сервером установлена
+      setStatus('success'); // связь с сервером установлена
       const data = await getAPI(); // GET-запрос на сервер
       setList(data); // ререндер (состояние list) -> актуализация массива заметок
     })();
@@ -63,15 +62,17 @@ const App = () => {
     setList(data); // ререндер (состояние list) -> актуализация массива заметок
   };
 
-  return !isLoad ? (
-    <Load /> // FIXME: как убрать мелькание компонента Load при загрузке и перезагрузке веб-страницы
-  ) : !isFound ? (
-    <ServerError />
-  ) : (
+  return (
     <>
-      <Title onRefresh={onRefresh} />
-      <NoteList list={list} onRemove={onRemove} />
-      <Form note={note} onChange={handleChange} onSubmit={handleSubmit} />
+      {status === 'pending' && <Load />}
+      {status === 'error' && <ServerError />}
+      {status === 'success' && (
+        <>
+          <Title onRefresh={onRefresh} />
+          <NoteList list={list} onRemove={onRemove} />
+          <Form note={note} onChange={handleChange} onSubmit={handleSubmit} />
+        </>
+      )}
     </>
   );
 };

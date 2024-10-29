@@ -21,6 +21,7 @@ textarea {
   background-color: #fff;
 }
 
+button:focus,
 textarea:focus {
   outline: none;
 }

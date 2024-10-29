@@ -19,10 +19,6 @@
   resize: none;
 }
 
-.form__textarea:focus {
-  border-color: rgb(0, 111, 74);
-}
-
 .form__button {
   position: absolute;
   bottom: 25px;
@@ -34,6 +30,11 @@
   border-radius: 50%;
 
   background-color: #fff;
+}
+
+.form__button:focus,
+.form__textarea:focus {
+  border-color: rgb(0, 111, 74);
 }
 
 .form__button-img {

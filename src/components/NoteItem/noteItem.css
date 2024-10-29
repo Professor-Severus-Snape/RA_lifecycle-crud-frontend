@@ -5,6 +5,15 @@
   border: 2px solid #000;
 }
 
+.note-item__content {
+  text-align: justify;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  -webkit-hyphens: auto;
+  -moz-hyphens: auto;
+  hyphens: auto;
+}
+
 .note-item__close-btn {
   position: absolute;
   top: 0;

@@ -14,8 +14,10 @@ const App = () => {
   // первоначальная отрисовка компонента с данными, полученными с сервера:
   useEffect(() => {
     (async () => {
-      setStatus('pending'); // ожидание подключения к серверу
+      // задержка появления лоадера в 1 секунду (чтобы не мелькал при перезагрузке страницы):
+      const loaderTimeout = setTimeout(() => setStatus('pending'), 1000);
       const server = await pingAPI(); // подключение к серверу
+      clearTimeout(loaderTimeout); // при быстром соединении с сервером лоадер не нужен
 
       if (server.status === 520) {
         setStatus('error'); // ошибка подключения к серверу
